@@ -33,6 +33,10 @@ local l10n = QuestieLoader:ImportModule("l10n")
 
 local LibDropDown = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
 
+-- added by Areuhungry
+---@type QuestieTracker
+local QuestieAnnounce = QuestieLoader:ImportModule("QuestieAnnounce")
+
 -- Local Vars
 local trackerLineCount = 80
 local trackerLineWidth = 1
@@ -2163,11 +2167,14 @@ _OnClick = function(self, button)
 
     elseif QuestieTracker.utils:IsBindTrue(Questie.db.global.trackerbindUntrack, button) then
         if (IsModifiedClick("CHATLINK") and ChatEdit_GetActiveWindow()) then
-
+            -- added by Areuhungry
+            enUS_questName = QuestieAnnounce:GetenUSQuestText(self.Quest.Id)
             if Questie.db.global.trackerShowQuestLevel then
-                ChatEdit_InsertLink("[["..self.Quest.level.."] "..self.Quest.name.." ("..self.Quest.Id..")]")
+                -- ChatEdit_InsertLink("[["..self.Quest.level.."] "..self.Quest.name.." ("..self.Quest.Id..")]")
+                ChatEdit_InsertLink("[["..self.Quest.level.."] "..enUS_questName.." ("..self.Quest.Id..")]")
             else
-                ChatEdit_InsertLink("["..self.Quest.name.." ("..self.Quest.Id..")]")
+                -- ChatEdit_InsertLink("["..self.Quest.name.." ("..self.Quest.Id..")]")
+                ChatEdit_InsertLink("["..enUS_questName.." ("..self.Quest.Id..")]")
             end
 
         else

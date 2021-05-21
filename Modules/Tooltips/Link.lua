@@ -14,6 +14,9 @@ local QuestieTracker = QuestieLoader:ImportModule("QuestieTracker")
 ---@type l10n
 local l10n = QuestieLoader:ImportModule("l10n")
 
+---@type QuestieAnnounce
+local QuestieAnnounce = QuestieLoader:ImportModule("QuestieAnnounce")
+
 QuestieLink.lastItemRefTooltip = ""
 
 -- Forward declaration
@@ -334,7 +337,9 @@ hooksecurefunc("ChatFrame_OnHyperlinkShow", function(...)
                 local msg = ChatFrame1EditBox:GetText()
                 if msg then
                     ChatFrame1EditBox:SetText("")
-                    ChatEdit_InsertLink(string.gsub(msg, "%|Hquestie:" .. questId .. ":.*%|h", "%[%[" .. quest.level .. "%] " .. quest.name .. " %(" .. questId .. "%)%]"))
+                    enUS_questName = QuestieAnnounce:GetenUSQuestText(questId)
+                    -- ChatEdit_InsertLink(string.gsub(msg, "%|Hquestie:" .. questId .. ":.*%|h", "%[%[" .. quest.level .. "%] " .. quest.name .. " %(" .. questId .. "%)%]"))
+                    ChatEdit_InsertLink(string.gsub(msg, "%|Hquestie:" .. questId .. ":.*%|h", "%[%[" .. quest.level .. "%] " ..  enUS_questName .. " %(" .. questId .. "%)%]"))
                 end
             end
         end
